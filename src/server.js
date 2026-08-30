@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const venueRoutes = require('./routes/venueRoutes');
 const authRoutes = require('./routes/authRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -15,6 +16,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/venues', venueRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Handle requests to routes that don't exist
 app.use(notFound);
