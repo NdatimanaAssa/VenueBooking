@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const venueRoutes = require('./routes/venueRoutes');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 
@@ -12,6 +13,12 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/venues', venueRoutes);
+
+// Handle requests to routes that don't exist
+app.use(notFound);
+
+// Handle all errors thrown anywhere in the app
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
